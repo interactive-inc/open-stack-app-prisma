@@ -1,35 +1,37 @@
 # Start Basic Cloudflare
 
+https://developers.cloudflare.com/workers/framework-guides/web-apps/tanstack/
+
 ## Getting Started
 
 ### Install the dependencies
 
 ```bash
-pnpm i
+bun i
 ```
 
 ### Start the development server
 
 ```bash
-pnpm dev
+bun dev
 ```
 
 ### Build for Production
 
 ```bash
-pnpm build
+bun build
 ```
 
 ### Preview the production build
 
 ```bash
-pnpm preview
+bun preview
 ```
 
 ### Deploy to Cloudflare
 
 ```sh
-pnpm run deploy
+bun run deploy
 ```
 
 ## Accessing bindings
@@ -40,4 +42,22 @@ You can access Cloudflare bindings in server functions by using importable `env`
 import { env } from 'cloudflare:workers'
 ```
 
-See `src/routes/index.tsx` for an example.
+See `src/api/routes/index.ts` for an example.
+
+# メモ
+
+## ~ vs @
+
+初期値では `~` ですが、Claudeが間違って `rm -rf ~/xxx` など実行した場合に危険なので `@` に変更しました。
+
+```json
+{ "resolve": { "alias": { "@": "/src" } } }
+```
+
+## route-tree.gen.ts
+
+初期値では `routeTree.gen.ts` ですが、Claudeがこのファイル名を参考に他のファイルの命名規則を間違って `camelCase` にしてしまう可能性があるので、`kebab-case` に変更しました。
+
+```json
+{ "router": { "generatedRouteTree": "route-tree.gen.ts" } }
+```
