@@ -5,7 +5,10 @@
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
   "vars": {
-    "MY_VAR": "Hello from Cloudflare"
+    "MY_VAR": "Hello from Cloudflare",
+    "JWT_COOKIE_SECRET": "",
+    "JWT_COOKIE_KEY": "",
+    "JWT_SECRET": "50498835-6bda-46cb-ac34-6e38d0230b05"
   },
   "d1_databases": [
     {

@@ -14,6 +14,7 @@
     "format": "biome check . --fix --unsafe"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.7.3",
     "@hookform/resolvers": "^5.2.2",
     "@pothos/core": "^4.10.0",
     "@prisma/client": "^6.16.3",

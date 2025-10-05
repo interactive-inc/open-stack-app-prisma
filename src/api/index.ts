@@ -5,6 +5,10 @@ import { HTTPException } from "hono/http-exception"
 import { factory } from "@/api/interface/factory"
 import { databaseMiddleware } from "@/api/interface/middlewares/database-middleware"
 import { sessionMiddleware } from "@/api/interface/middlewares/session-middleware"
+import * as auth_session from "@/api/interface/routes/auth.session"
+import * as auth_sign_in from "@/api/interface/routes/auth.sign.in"
+import * as auth_sign_out from "@/api/interface/routes/auth.sign.out"
+import * as auth_sign_up from "@/api/interface/routes/auth.sign.up"
 import * as debug_random from "@/api/interface/routes/debug.random"
 import * as index from "@/api/interface/routes/index"
 import { schema } from "@/api/interface/schema"
@@ -38,6 +42,10 @@ export const app = factory
   .mount("/graphql", graphql)
   .basePath("/api")
   .get("/", index.GET)
+  .get("/auth/session", auth_session.GET)
+  .post("/auth/sign/in", auth_sign_in.POST)
+  .post("/auth/sign/up", auth_sign_up.POST)
+  .post("/auth/sign/out", auth_sign_out.POST)
   .get("/debug/random", debug_random.GET)
 
 app.onError((e, c) => {
