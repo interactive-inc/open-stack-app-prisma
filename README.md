@@ -44,6 +44,33 @@ import { env } from 'cloudflare:workers'
 
 See `src/api/routes/index.ts` for an example.
 
+## Bugs
+
+### ビルドに失敗する
+
+```
+[prerender] Prerendering pages...
+file:///Users/xxx/Documents/GitHub/open-stack-cloudflare/node_modules/@tanstack/start-plugin-core/dist/esm/prerender.js:110
+            throw new Error(`Failed to fetch ${page.path}: ${res.statusText}`, {
+                  ^
+
+Error: Failed to fetch /: 
+    at file:///Users/xxx/Documents/GitHub/open-stack-cloudflare/node_modules/@tanstack/start-plugin-core/dist/esm/prerender.js:110:19
+    at async file:///Users/xxx/Documents/GitHub/open-stack-cloudflare/node_modules/@tanstack/start-plugin-core/dist/esm/queue.js:38:17 {
+  [cause]: Response {}
+}
+```
+
+これ以前に `compatibilityFlags` が `undefined` になるので、一時的に `vite.config.ts` で値を設定してみている。
+
+```
+define: {
+  "globalThis.Cloudflare.compatibilityFlags": JSON.stringify({
+    enable_nodejs_process_v2: true,
+  }),
+},
+```
+
 ## マイグレーション
 
 ここでは仮に「open-stack-cloudflare」というデータベース名を使用します。これは[.wrangler.json](./wrangler.json)の `database_name` と一致させてください。
