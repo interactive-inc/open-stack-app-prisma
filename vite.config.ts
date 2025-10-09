@@ -15,4 +15,12 @@ export default defineConfig({
     viteReact(),
     tailwindcss(),
   ],
+  /**
+   * https://github.com/TanStack/router/issues/5213#issuecomment-3341078755
+   */
+  define: {
+    "globalThis.Cloudflare.compatibilityFlags": JSON.stringify({
+      enable_nodejs_process_v2: true,
+    }),
+  },
 })

@@ -1,4 +1,4 @@
-# Start Basic Cloudflare
+# Stack App with API - TanStack Start + Hono + Cloudflare + Prisma
 
 https://developers.cloudflare.com/workers/framework-guides/web-apps/tanstack/
 
@@ -43,6 +43,65 @@ import { env } from 'cloudflare:workers'
 ```
 
 See `src/api/routes/index.ts` for an example.
+
+## マイグレーション
+
+ここでは仮に「open-stack-cloudflare」というデータベース名を使用します。これは[.wrangler.json](./wrangler.json)の `database_name` と一致させてください。
+
+以下のコマンドで空のファイルを作成します。
+
+```
+bun wrangler d1 migrations create open-stack-cloudflare create_user_table
+```
+
+次に、差分を計算しファイルの中にSQLを書き込むのですが、初回の場合は差分がないので `--from-empty` を使います。
+
+```
+bun prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --output prisma/migrations/0001_create_user_table.sql --script
+```
+
+以下のコマンドでローカルのデータベースを更新します。
+
+```
+bun wrangler d1 migrations apply open-stack-cloudflare --local
+```
+
+2回目以降の場合は、ローカルのデータベースのとの差分を計算します。
+
+```
+bun prisma migrate diff --from-schema-datamodel prisma/schema.prisma --to-local-d1 --script
+```
+
+### リモート環境のマイグレーション
+
+以下のコマンドで本番環境のデータベースを更新します。
+
+```
+bun wrangler d1 migrations apply open-stack-cloudflare --remote
+```
+
+ただし、先にデータベースが作成されている必要があります。
+
+```
+bun wrangler d1 create open-stack-cloudflare
+```
+
+### リモートのデータベースと接続する
+
+プロパティに`remote`を追加します。
+
+```json
+{
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "open-stack-cloudflare",
+      "database_id": "e0097010-e9a1-4800-8a7e-xxx",
+      "remote": true
+    }
+  ]
+}
+```
 
 # メモ
 

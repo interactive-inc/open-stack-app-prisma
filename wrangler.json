@@ -14,7 +14,8 @@
     {
       "binding": "DB",
       "database_name": "open-stack-cloudflare",
-      "database_id": "-"
+      "database_id": "e0097010-e9a1-4800-8a7e-f3815ab10668",
+      "migrations_dir": "prisma/migrations"
     }
   ]
 }
