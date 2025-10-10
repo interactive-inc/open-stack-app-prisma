@@ -46,29 +46,26 @@ See `src/api/routes/index.ts` for an example.
 
 ## Bugs
 
-### ビルドに失敗する
+### SPAモードでビルドすると失敗する
+
+この設定の`spa`を`true`にすると、ビルドに失敗します。
 
 ```
-[prerender] Prerendering pages...
-file:///Users/xxx/Documents/GitHub/open-stack-cloudflare/node_modules/@tanstack/start-plugin-core/dist/esm/prerender.js:110
-            throw new Error(`Failed to fetch ${page.path}: ${res.statusText}`, {
-                  ^
-
-Error: Failed to fetch /: 
-    at file:///Users/xxx/Documents/GitHub/open-stack-cloudflare/node_modules/@tanstack/start-plugin-core/dist/esm/prerender.js:110:19
-    at async file:///Users/xxx/Documents/GitHub/open-stack-cloudflare/node_modules/@tanstack/start-plugin-core/dist/esm/queue.js:38:17 {
-  [cause]: Response {}
-}
-```
-
-これ以前に `compatibilityFlags` が `undefined` になるので、一時的に `vite.config.ts` で値を設定してみている。
+export default defineConfig({
+  plugins: [
+    tanstackStart({
+      spa: { enabled: true },
+    }),
+  ],
+})
 
 ```
-define: {
-  "globalThis.Cloudflare.compatibilityFlags": JSON.stringify({
-    enable_nodejs_process_v2: true,
-  }),
-},
+
+このようなエラーが発生する。
+
+```
+error during build:
+TypeError: Cannot read properties of undefined (reading 'compatibilityFlags')
 ```
 
 ## マイグレーション

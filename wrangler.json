@@ -4,17 +4,20 @@
   "compatibility_date": "2025-09-24",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
+  "observability": { "enabled": true },
   "vars": {
     "MY_VAR": "Hello from Cloudflare",
-    "JWT_COOKIE_SECRET": "",
-    "JWT_COOKIE_KEY": "",
-    "JWT_SECRET": "50498835-6bda-46cb-ac34-6e38d0230b05"
+    "JWT_COOKIE_KEY": "open.stack.session"
+  },
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "dist/client"
   },
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "open-stack-cloudflare",
-      "database_id": "e0097010-e9a1-4800-8a7e-f3815ab10668",
+      "database_id": "621a4171-7e7b-4aa7-89e9-e3076c8ebb4c",
       "migrations_dir": "prisma/migrations"
     }
   ]

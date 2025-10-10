@@ -9,18 +9,10 @@ export default defineConfig({
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tanstackStart({
-      spa: { enabled: true },
+      spa: { enabled: false },
       router: { generatedRouteTree: "route-tree.gen.ts" },
     }),
     viteReact(),
     tailwindcss(),
   ],
-  /**
-   * https://github.com/TanStack/router/issues/5213#issuecomment-3341078755
-   */
-  define: {
-    "globalThis.Cloudflare.compatibilityFlags": JSON.stringify({
-      enable_nodejs_process_v2: true,
-    }),
-  },
 })

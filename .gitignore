@@ -1,3 +1,6 @@
+# Prisma
+src/lib/prisma
+
 .env.local
 
 node_modules

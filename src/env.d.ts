@@ -2,9 +2,11 @@ import type { PrismaClient } from "@prisma/client"
 import type { YogaInitialContext } from "graphql-yoga"
 import type { SessionPayload } from "@/api/types"
 
-/**
- * 変数
- */
+export type Bindings = Env & {
+  JWT_COOKIE_SECRET: string
+  JWT_SECRET: string
+}
+
 export type Variables = {
   database: PrismaClient
   session: SessionPayload | null
@@ -15,7 +17,7 @@ export type Variables = {
  * @example new Hono<Env>()
  */
 export type HonoEnv = {
-  Bindings: Env
+  Bindings: Bindings
   Variables: Variables
 }
 
@@ -25,7 +27,7 @@ export type HonoEnv = {
  */
 export type Context = {
   var: Variables
-  env: Env
+  env: Bindings
 }
 
 export type YogaContext = YogaInitialContext & Context
