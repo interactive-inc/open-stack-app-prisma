@@ -19,7 +19,7 @@ export async function createSessionToken(
 
 export async function parseSessionToken(token: string, secret: string) {
   try {
-    const payload = await verify(token, secret)
+    const payload = await verify(token, secret, "HS256")
     const session = vSessionPayload.safeParse(payload)
 
     return session.success ? session.data : null
