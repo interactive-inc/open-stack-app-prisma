@@ -35,13 +35,11 @@ export class CreateProjectMember {
       const result = await this.deps.repository.write(projectMember)
 
       if (result instanceof Error) {
-        return new InternalGraphQLError(
-          "プロジェクトメンバーの作成に失敗しました。",
-        )
+        return new InternalGraphQLError("プロジェクトメンバーの作成に失敗しました。")
       }
 
       return projectMember
-    } catch (_error) {
+    } catch {
       return new InternalGraphQLError()
     }
   }

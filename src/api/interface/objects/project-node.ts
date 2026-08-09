@@ -58,9 +58,7 @@ builder.objectField(PothosProjectNode, "members", (t) => {
       limit: t.arg({ type: "Int", required: true }),
     },
     resolve(parent, _args, c) {
-      return c.var.database.prismaProject
-        .findUniqueOrThrow({ where: { id: parent.id } })
-        .members()
+      return c.var.database.prismaProject.findUniqueOrThrow({ where: { id: parent.id } }).members()
     },
   })
 })

@@ -1,13 +1,10 @@
 import { builder } from "@/api/interface/builder"
 
-export const PothosUpdateProjectInput = builder.inputType(
-  "UpdateProjectInput",
-  {
-    description: undefined,
-    fields(t) {
-      return {
-        name: t.string({ required: true }),
-      }
-    },
+export const PothosUpdateProjectInput = builder.inputType("UpdateProjectInput", {
+  description: undefined,
+  fields(t) {
+    return {
+      name: t.string({ required: true }),
+    }
   },
-)
+})

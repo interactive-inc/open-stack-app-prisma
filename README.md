@@ -7,31 +7,40 @@ https://developers.cloudflare.com/workers/framework-guides/web-apps/tanstack/
 ### Install the dependencies
 
 ```bash
-bun i
+vp install
 ```
 
 ### Start the development server
 
 ```bash
-bun dev
+vp dev
 ```
 
 ### Build for Production
 
 ```bash
-bun build
+vp build
 ```
 
 ### Preview the production build
 
 ```bash
-bun preview
+vp preview
 ```
 
 ### Deploy to Cloudflare
 
 ```sh
-bun run deploy
+vp run deploy
+```
+
+### Verify
+
+```bash
+vp lint
+vp fmt
+vp test
+vp run check
 ```
 
 ## Accessing bindings
@@ -39,34 +48,10 @@ bun run deploy
 You can access Cloudflare bindings in server functions by using importable `env`:
 
 ```ts
-import { env } from 'cloudflare:workers'
+import { env } from "cloudflare:workers"
 ```
 
 See `src/api/routes/index.ts` for an example.
-
-## Bugs
-
-### SPAモードでビルドすると失敗する
-
-この設定の`spa`を`true`にすると、ビルドに失敗します。
-
-```
-export default defineConfig({
-  plugins: [
-    tanstackStart({
-      spa: { enabled: true },
-    }),
-  ],
-})
-
-```
-
-このようなエラーが発生する。
-
-```
-error during build:
-TypeError: Cannot read properties of undefined (reading 'compatibilityFlags')
-```
 
 ## マイグレーション
 
@@ -75,25 +60,25 @@ TypeError: Cannot read properties of undefined (reading 'compatibilityFlags')
 以下のコマンドで空のファイルを作成します。
 
 ```
-bun wrangler d1 migrations create open-stack-cloudflare create_user_table
+vp exec wrangler d1 migrations create open-stack-cloudflare create_user_table
 ```
 
 次に、差分を計算しファイルの中にSQLを書き込むのですが、初回の場合は差分がないので `--from-empty` を使います。
 
 ```
-bun prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --output prisma/migrations/0001_create_user_table.sql --script
+vp exec prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --output prisma/migrations/0001_create_user_table.sql --script
 ```
 
 以下のコマンドでローカルのデータベースを更新します。
 
 ```
-bun wrangler d1 migrations apply open-stack-cloudflare --local
+vp exec wrangler d1 migrations apply open-stack-cloudflare --local
 ```
 
 2回目以降の場合は、ローカルのデータベースのとの差分を計算します。
 
 ```
-bun prisma migrate diff --from-schema-datamodel prisma/schema.prisma --to-local-d1 --script
+vp exec prisma migrate diff --from-schema-datamodel prisma/schema.prisma --to-local-d1 --script
 ```
 
 ### リモート環境のマイグレーション
@@ -101,13 +86,13 @@ bun prisma migrate diff --from-schema-datamodel prisma/schema.prisma --to-local-
 以下のコマンドで本番環境のデータベースを更新します。
 
 ```
-bun wrangler d1 migrations apply open-stack-cloudflare --remote
+vp exec wrangler d1 migrations apply open-stack-cloudflare --remote
 ```
 
 ただし、先にデータベースが作成されている必要があります。
 
 ```
-bun wrangler d1 create open-stack-cloudflare
+vp exec wrangler d1 create open-stack-cloudflare
 ```
 
 ### リモートのデータベースと接続する

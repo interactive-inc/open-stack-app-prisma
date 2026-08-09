@@ -21,15 +21,10 @@ export class DeleteProjectMember {
 
   async run(props: Props) {
     try {
-      const projectMember = await this.deps.repository.read(
-        props.projectId,
-        props.userId,
-      )
+      const projectMember = await this.deps.repository.read(props.projectId, props.userId)
 
       if (projectMember === null) {
-        return new NotFoundGraphQLError(
-          "プロジェクトメンバーが見つかりませんでした。",
-        )
+        return new NotFoundGraphQLError("プロジェクトメンバーが見つかりませんでした。")
       }
 
       await this.c.var.database.prismaProjectMember.delete({
@@ -37,7 +32,7 @@ export class DeleteProjectMember {
       })
 
       return { id: props.userId }
-    } catch (_error) {
+    } catch {
       return new InternalGraphQLError()
     }
   }

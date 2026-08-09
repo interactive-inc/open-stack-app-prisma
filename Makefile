@@ -1,6 +1,6 @@
 update:
 	bunx npm-check-updates -u
-	bun i
+	vp install
 
 update-shadcn-ui:
 	bunx --bun shadcn@latest add -a -o -y

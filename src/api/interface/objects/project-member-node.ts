@@ -3,8 +3,7 @@ import { builder } from "@/api/interface/builder"
 import { PothosProjectNode } from "@/api/interface/objects/project-node"
 import { PothosUserNode } from "@/api/interface/objects/user-node"
 
-export const PothosProjectMemberNode =
-  builder.objectRef<PrismaProjectMember>("ProjectMemberNode")
+export const PothosProjectMemberNode = builder.objectRef<PrismaProjectMember>("ProjectMemberNode")
 
 builder.objectType(PothosProjectMemberNode, {
   description: undefined,

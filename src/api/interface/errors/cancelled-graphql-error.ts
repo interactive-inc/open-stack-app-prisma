@@ -5,9 +5,7 @@ import { GraphQLError } from "graphql"
  * The operation was cancelled, typically by the caller.
  */
 export class CancelledGraphQLError extends GraphQLError {
-  constructor(
-    message = "The operation was cancelled, typically by the caller.",
-  ) {
+  constructor(message = "The operation was cancelled, typically by the caller.") {
     super(message, {
       extensions: {
         code: "CANCELLED",

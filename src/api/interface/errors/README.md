@@ -38,7 +38,7 @@ export type FunctionsErrorCode =
   | "internal"
   | "unavailable"
   | "data-loss"
-  | "unauthenticated";
+  | "unauthenticated"
 
 export type CanonicalErrorCodeName =
   | "OK"
@@ -57,5 +57,5 @@ export type CanonicalErrorCodeName =
   | "UNIMPLEMENTED"
   | "INTERNAL"
   | "UNAVAILABLE"
-  | "DATA_LOSS";
+  | "DATA_LOSS"
 ```

@@ -25,26 +25,20 @@ export class ProjectMemberRepository {
       return null
     } catch (error) {
       console.error(error)
-      return error instanceof Error
-        ? error
-        : new Error("プロジェクトメンバーの保存に失敗しました")
+      return error instanceof Error ? error : new Error("プロジェクトメンバーの保存に失敗しました")
     }
   }
 
-  async read(
-    projectId: string,
-    userId: string,
-  ): Promise<ProjectMemberEntity | null> {
+  async read(projectId: string, userId: string): Promise<ProjectMemberEntity | null> {
     try {
-      const data =
-        await this.c.var.database.prismaProjectMember.findUniqueOrThrow({
-          where: {
-            projectId_userId: {
-              projectId,
-              userId,
-            },
+      const data = await this.c.var.database.prismaProjectMember.findUniqueOrThrow({
+        where: {
+          projectId_userId: {
+            projectId,
+            userId,
           },
-        })
+        },
+      })
 
       return new ProjectMemberEntity({
         id: data.id,
